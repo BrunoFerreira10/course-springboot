@@ -94,6 +94,10 @@ public class Order implements Serializable{
 	public void setPayment(Payment payment) {
 		this.payment = payment;
 	}
+	
+	public Double getTotal() {		
+		return items.stream().map(x -> x.getSubTotal()).reduce(0.0, (x,y) -> x + y);		
+	}
 
 	public Set<OrderItem> getItems() {
 		return items;
