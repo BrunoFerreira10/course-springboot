@@ -24,4 +24,7 @@ public class UserService {
 		return optionalEntity.get();
 	}
 
+	public User insert(User entity) {
+		return repository.save(entity);
+	}
 }
