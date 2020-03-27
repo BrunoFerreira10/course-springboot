@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,13 +26,13 @@ public class UserResource {
 	
 	@GetMapping
 	public ResponseEntity<List<User>> findAll(){	
-		return ResponseEntity.ok().body(service.findAll());
+		return ResponseEntity.ok().body(service.findAll()); //Return 200
 	}
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<User> findById(@PathVariable Long id){
 		User entity = service.findById(id);
-		return ResponseEntity.ok().body(entity);
+		return ResponseEntity.ok().body(entity); //Return 200
 	}
 	
 	@PostMapping
@@ -41,7 +42,19 @@ public class UserResource {
 					.path("/{id}")
 					.buildAndExpand(entity.getId())
 					.toUri();
-		return ResponseEntity.created(uri).body(entity);
+		return ResponseEntity.created(uri).body(entity); //Return 201
 	}
 	
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<Void> delete(@PathVariable Long id){
+		service.delete(id);
+		return ResponseEntity.noContent().build(); //Return 204
+	}
+	
+	
 }
+
+
+
+
+
